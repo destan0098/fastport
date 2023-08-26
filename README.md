@@ -26,7 +26,7 @@ go install github.com/destan0098/fastport@latest
 Scan TCP Port Scan with timeout 1000ms
 ```
 
-Example : man.exe -ip='127.0.0.1' -proto='tcp' -timeout='1000'
+Example : fastport -ip='127.0.0.1' -proto='tcp' -timeout='1000'
 
 ```
 
