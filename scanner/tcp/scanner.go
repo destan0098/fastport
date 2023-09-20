@@ -15,10 +15,11 @@ import (
 	"time"
 )
 
+// Message represents information about an open TCP port.
 type Message struct {
-	Port    int
-	Status  string
-	hexflag string
+	Port    int    // Port number
+	Status  string // Status (e.g., "open" or "closed")
+	hexflag string // Hexadecimal flag
 }
 
 var list []Message
@@ -26,6 +27,7 @@ var list2 []Message
 var count = 0
 var faildcount = 0
 
+// Tcpscanner scans a range of TCP ports on a given IP address.
 func Tcpscanner(ip string, timeout string) {
 	fmt.Println(ip)
 	fmt.Println("Start TCP Check")
@@ -58,10 +60,7 @@ func Tcpscanner(ip string, timeout string) {
 					recover()
 				}
 				var btt2 []byte
-				//	fmt.Fprintf(conn, "GET / HTTP/1.1 \n")
 				fmt.Fprintf(conn2, "GET / HTTP/1.1 \n")
-				//fmt.Fprintf(conn2, "Hello ACK")
-				//	fmt.Fprintf(conn, "SYN/ACK \n")
 				btt2, err = bufio.NewReader(conn2).ReadBytes('%')
 
 				if err != nil {
@@ -76,36 +75,28 @@ func Tcpscanner(ip string, timeout string) {
 					return
 				}
 				var re = regexp.MustCompile(`(?m)(?:[\n\r\w\W]+)[\n\r]{2}`)
-				//var re = regexp.MustCompile(`(?s)Server:(.*?)\n`)
 				for _, match := range re.FindAllString(strdec, -1) {
-					//fmt.Println(match, "found at index", ik)
 					math2 := match + "\n\r"
 					fmt.Println("[+]Port ", j, " Opened with ", math2, " Service")
 
 					m2 := Message{j, "open", math2}
-
 					list = append(list, m2)
 				}
 			}
 			conn, err := net.Dial("tcp", address)
 			if err != nil {
 				faildcount++
-
 			} else {
 				count++
 				err = conn.SetDeadline(time.Now().Add(time.Duration(timeoute) * time.Second))
 				if err != nil {
-
 					recover()
 				}
 				var btt []byte
 				fmt.Fprintf(conn, "GET / HTTP/1.1 \n")
-				//	fmt.Fprintf(conn, "Hello ACK")
-				//	fmt.Fprintf(conn, "SYN/ACK \n")
 				btt, err = bufio.NewReader(conn).ReadBytes('%')
 
 				if err != nil {
-
 					recover()
 				}
 
@@ -116,26 +107,16 @@ func Tcpscanner(ip string, timeout string) {
 					return
 				}
 				var re = regexp.MustCompile(`(?m)(?:[\n\r\w\W]+)[\n\r]{2}`)
-				//	var re = regexp.MustCompile(`(?s)Server:(.*?)\n`)
 				for _, match := range re.FindAllString(strdec, -1) {
-					//fmt.Println(match, "found at index", ik)
 					math2 := match + "\n\r"
 					fmt.Println("[+]Port ", j, " Opened with ", math2, " Service")
 
 					m2 := Message{j, "open", math2}
-
 					list = append(list, m2)
 				}
-				/*	fmt.Println("[+]Port ", j, " Opened with ", strdec, " Service")
-					m := Message{j, "open", strdec}*/
-
-				//	list = append(list, m)
-
 			}
 			defer wg.Done()
-
 		}(i)
-
 	}
 	wg.Wait()
 	fmt.Println("success count :" + strconv.Itoa(count/2))
@@ -152,5 +133,4 @@ func Tcpscanner(ip string, timeout string) {
 	} else {
 		_ = ioutil.WriteFile(ip+week2+"tcpopen.json", jso, 0644)
 	}
-
 }

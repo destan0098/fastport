@@ -15,20 +15,23 @@ import (
 	"time"
 )
 
+// Scanner represents a UDP port scanner.
 type Scanner struct {
-	Ip     string
-	Probes []probes.Probe
-
-	Result chan string
+	Ip     string         // IP address to scan
+	Probes []probes.Probe // List of UDP probes to use
+	Result chan string    // Channel to send scan results
 }
+
+// Message represents information about an open UDP port.
 type Message struct {
-	Port    int
-	Status  string
-	hexflag string
+	Port    int    // Port number
+	Status  string // Status (e.g., "open" or "closed")
+	hexflag string // Hexadecimal flag
 }
 
 var list []Message
 
+// Run starts the UDP port scanning process.
 func (s Scanner) Run(timeout string) {
 	fmt.Println("Start UDP Check")
 	timeoute, _ := strconv.Atoi(timeout)
@@ -86,7 +89,6 @@ func (s Scanner) Run(timeout string) {
 				} else {
 					_ = ioutil.WriteFile(s.Ip+week2+"udpopen.json", jso, 0644)
 				}
-				//		log.Printf("[+] Received packet: %s...", hex.EncodeToString(recv_Data))
 
 				s.Result <- fmt.Sprintf("%s:%d	%s", s.Ip, probe.Port, probe.Name)
 			}

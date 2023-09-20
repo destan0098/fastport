@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+// maintext prints the introductory banner.
 func maintext() {
 
 	fmt.Print(color.Colorize(color.Green, `
@@ -64,6 +65,7 @@ func main() {
 
 }
 
+// scanUDPPort scans UDP ports.
 func scanUDPPort(ip string, timeout string) {
 	probe_count := len(probes.Probes)
 	result := make(chan string, probe_count)
