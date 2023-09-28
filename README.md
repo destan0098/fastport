@@ -17,7 +17,7 @@ Scan TCP and UDP Ports
 ## Installation
 
 ```
-go install github.com/destan0098/fastport/cmd@latest
+go install github.com/destan0098/fastport/cmd/fastport@latest
 ```
 ```
 git clone https://github.com/destan0098/fastport.git
