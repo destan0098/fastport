@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/destan0098/fastport/probes"
+	"github.com/destan0098/fastport/internal/probes"
 	"io/ioutil"
 	"log"
 	"net"

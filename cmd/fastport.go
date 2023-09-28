@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"github.com/TwiN/go-color"
-	"github.com/destan0098/fastport/probes"
-	tcpscanner "github.com/destan0098/fastport/scanner/tcp"
-	udpscanner "github.com/destan0098/fastport/scanner/udp"
+	"github.com/destan0098/fastport/internal/probes"
+	tcpscanner "github.com/destan0098/fastport/pkg/scanner/tcp"
+	udpscanner "github.com/destan0098/fastport/pkg/scanner/udp"
 	"runtime"
 	"time"
 )
